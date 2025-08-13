@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ad Popups</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+      margin: 40px;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      margin-top: 20px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #888;
+    }
+
+    .popup {
+      position: fixed;
+      background-color: white;
+      border: 2px solid #0077cc;
+      padding: 5px;
+      z-index: 9999;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .popup img {
+      max-width: 200px;
+      height: auto;
+      display: block;
+    }
+
+    .popup button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      background-color: #cc0000;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .popup button:hover {
+      background-color: #a00000;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to My Webpage</h1>
+  </header>
+
+  <main>
+    <h2>Now Featuring Pop-Up Ads 🎯</h2>
+    <p>This page will randomly show images from an ad folder at random intervals.</p>
+    <p>Not signed up yet? <a href="signup.html">Create an account here.</a></p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Simple Website</p>
+  </footer>
+
+  <script>
+    // List of ad images (update this with your real filenames)
+    const adImages = [
+      'ads/ad1.jpg',
+      'ads/ad2.jpg',
+      'ads/ad3.jpg',
+      'ads/ad4.jpg',
+      'ads/ad5.gif',
+      'ads/ad6.gif',
+      'ads/ad7.gif',
+    ];
+
+    function getRandomAdImage() {
+      const index = Math.floor(Math.random() * adImages.length);
+      return adImages[index];
+    }
+
+function createAdPopup() {
+  const popup = document.createElement('div');
+  popup.className = 'popup';
+
+  const img = document.createElement('img');
+  img.src = getRandomAdImage();
+  img.alt = 'Ad';
+
+  const btn = document.createElement('button');
+  btn.innerText = 'Close';
+  btn.onclick = () => popup.remove();
+
+  popup.appendChild(img);
+  popup.appendChild(btn);
+
+  // Random popup size
+  const minWidth = 180;
+  const maxWidth = 300;
+  const width = Math.floor(Math.random() * (maxWidth - minWidth + 1)) + minWidth;
+  const height = width * 0.75; // Maintain aspect ratio
+
+  popup.style.width = `${width}px`;
+  popup.style.height = `${height}px`;
+
+  // Adjust image size to fit popup
+  img.style.maxWidth = '100%';
+  img.style.height = 'auto';
+
+  // Random position
+  const maxX = window.innerWidth - width;
+  const maxY = window.innerHeight - height;
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  popup.style.left = `${randomX}px`;
+  popup.style.top = `${randomY}px`;
+
+  document.body.appendChild(popup);
+}
+
+
+    function scheduleNextPopup() {
+      const delay = Math.random() * (300 - 500) + 800; // 5s to 30s
+      setTimeout(() => {
+        createAdPopup();
+        scheduleNextPopup();
+      }, delay);
+    }
+
+    // Start it off
+    scheduleNextPopup();
+  </script>
+</body>
+</html>
+
