@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ProTasker — Sign in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <main class="shell" id="app">
+    <section class="frame">
+      <div class="media">
+        <!-- Use your own image in assets/hero.jpg or swap to a remote URL below -->
+        <img alt="Ceramic vases on shelves" id="hero" src="https://www.laura-james.co.uk/cdn/shop/files/24.06.11_LJ_STUDIO3742.jpg?v=1747731458&width=1426"/>
+      </div>
+
+      <div class="panel">
+        <div class="card" id="card" data-mode="signin">
+          <div class="brand">PROTASKER</div>
+          <h1 class="title">Welcome back</h1>
+          <p class="subtitle signin-only">Please enter your details</p>
+          <p class="subtitle signup-only">Let’s set you up in seconds</p>
+
+          <div class="field">
+            <label class="label" for="email">Email</label>
+            <input id="email" class="input" type="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+
+          <div class="field signin-only">
+            <label class="label" for="password">Password</label>
+            <input id="password" class="input" type="password" placeholder="••••••••" autocomplete="current-password" required>
+          </div>
+
+          <div class="field signup-only">
+            <label class="label" for="password2">Create a password</label>
+            <input id="password2" class="input" type="password" placeholder="At least 8 characters" autocomplete="new-password" required>
+          </div>
+
+          <div class="row signin-only">
+            <label class="checkbox"><input type="checkbox" id="remember"> Remember me</label>
+            <a class="link" href="#" id="forgot">Forgot password?</a>
+          </div>
+
+          <button id="btnSignIn" class="btn primary signin-only">Sign in</button>
+          <button id="btnSignup" class="btn primary signup-only">Continue</button>
+          <div class="helper signup-only" id="helper">(Almost done…)</div>
+
+          <p class="muted signin-only">Don’t have an account? <a class="link" href="#" id="toSignup">Sign up</a></p>
+          <p class="muted signup-only">Already have an account? <a class="link" href="#" id="toSignin">Go to sign in</a></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="toast" id="toast">Did you mean <b>Continue</b>? Just kidding.</div>
+  </main>
+
+  <script src="/fronted/js/ui.js"></script>
+  <script src="/fronted/js/pranks.js"></script>
+  <script src="/fronted/js/captcha.js"></script>
+  <script src="/fronted/js/main.js"></script>
+</body>
+</html>

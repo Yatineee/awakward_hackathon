@@ -1,0 +1,48 @@
+:root{
+  --bg:#b6a295;           /* warm beige background */
+  --card:#ffffff;         /* card surface */
+  --ink:#111827;          /* almost-black text */
+  --muted:#6b7280;        /* gray-500 */
+  --accent:#111827;       /* button color */
+  --accent-ink:#ffffff;   /* button text */
+  --ring: rgba(17,24,39,.12);
+  --shadow: 0 10px 30px rgba(17,24,39,.10);
+  --radius: 18px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+  color:var(--ink); background:var(--bg);
+  display:grid; place-items:center;
+}
+.shell{width:min(1100px,95vw); height:min(680px,92vh); background:linear-gradient(180deg, #c6b7ac 0%, #b6a295 100%); padding:18px; border-radius:28px; position:relative; overflow:hidden}
+.frame{display:grid; grid-template-columns: 48% 52%; gap:0; width:100%; height:100%; background:transparent; border-radius:22px; overflow:hidden}
+.media{position:relative; overflow:hidden}
+.media::before{content:""; position:absolute; inset:0; background-image: repeating-linear-gradient( 30deg, rgba(255,255,255,.12) 0 2px, transparent 2px 60px); pointer-events:none; z-index:1}
+.media > img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.95) contrast(1.05)}
+.panel{display:flex; align-items:center; justify-content:center; background:var(--card)}
+.card{width:min(440px,88%); padding:42px 40px; border-radius:var(--radius); box-shadow:var(--shadow)}
+.brand{font-weight:700; letter-spacing:.2px; font-size:14px; color:var(--muted); margin-bottom:10px}
+.title{font-size:28px; font-weight:700; margin:0 0 6px}
+.subtitle{color:var(--muted); margin:0 0 26px; font-size:14px}
+.field{margin:16px 0}
+.label{display:block; font-size:13px; font-weight:600; margin:0 0 8px}
+.input{width:100%; border:1px solid #e5e7eb; border-radius:12px; padding:12px 14px; font-size:15px; outline:none; transition:box-shadow .15s,border-color .15s}
+.input:focus{border-color:#c4c7cf; box-shadow:0 0 0 6px var(--ring)}
+.row{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:10px 0 18px}
+.checkbox{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted)}
+.checkbox input{width:16px; height:16px}
+.link{color:#374151; text-decoration:none; font-weight:600}
+.link:hover{text-decoration:underline}
+.btn{width:100%; border:none; background:var(--accent); color:var(--accent-ink); font-weight:600; padding:14px 16px; border-radius:12px; cursor:pointer; font-size:15px; box-shadow:0 6px 18px rgba(17,24,39,.15); transition:transform .06s ease, box-shadow .2s ease, opacity .18s}
+.btn:hover{transform:translateY(-1px); box-shadow:0 10px 26px rgba(17,24,39,.20)}
+.btn:active{transform:translateY(0)}
+.muted{color:var(--muted); font-size:14px; text-align:center; margin-top:18px}
+.toast{position:absolute; left:50%; bottom:16px; transform:translateX(-50%); background:#111827; color:#fff; padding:10px 14px; font-size:13px; border-radius:999px; box-shadow:0 8px 24px rgba(0,0,0,.24); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(-4px)}
+[data-mode="signup"] .title::after{content:" – Create your account"; font-weight:600; color:#6b7280; font-size:14px; margin-left:6px}
+[data-mode="signin"] .signup-only{display:none}
+[data-mode="signup"] .signin-only{display:none}
+.card:hover .btn.primary{transform:translate(1px,-1px)}
+.helper{margin-top:10px; font-size:12px; color:#9ca3af}
