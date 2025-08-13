@@ -1,10 +1,8 @@
-// captcha.js — placeholder for the “impossible” captcha
-// You can expand this into a modal with grid images later.
+// captcha.js — optional “impossible captcha” placeholder
 import { toast } from './ui.js';
 
 export function runImpossibleCaptcha(){
-  // Return a Promise to simulate async verification
-  return new Promise((resolve, reject)=>{
+  return new Promise((_, reject)=>{
     setTimeout(()=>{
       toast('Captcha expired. Please try again.');
       reject(new Error('captcha_failed'));

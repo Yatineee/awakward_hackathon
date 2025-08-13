@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mischief — Sign in</title>
+  <!-- 只引本页 CSS，别再引 styles.css，避免冲突 -->
+  <link rel="stylesheet" href="../fronted/css/signin.css" />
+</head>
+<body>
+  <div class="auth">
+    <div class="auth-frame">
+      <!-- 左：大图 -->
+      <section class="auth-hero">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.MVNLEmtMRYoIXYiyuN5xDQHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="hero" />
+      </section>
+
+      <!-- 右：表单 -->
+      <section class="auth-form">
+        <div class="auth-card">
+          <h1 class="auth-title">Welcome back</h1>
+          <p class="auth-subtitle">Please enter your details</p>
+
+          <form class="form" id="signinForm">
+            <!-- 恶搞：标签对调 -->
+            <label for="field-email" class="lbl">Password</label>
+            <input id="field-email" name="email" type="text" placeholder="you@example.com" required />
+
+            <label for="field-password" class="lbl">Email</label>
+            <input id="field-password" name="password" type="password" placeholder="••••••••" required />
+
+            <div class="auth-row">
+              <label><input type="checkbox" /> Remember me</label>
+              <a class="link-inline" href="#">Forgot Password?</a>
+            </div>
+
+            <button class="btn primary" type="submit">Sign In</button>
+          </form>
+
+          <p class="tiny light">Don’t have an account? <a class="link-inline" href="signup.html">Sign up</a></p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // 验证：如果“密码框”看起来像邮箱，而“邮箱框”不是邮箱 → 嘲讽并阻止提交
+    const form = document.getElementById('signinForm');
+    const emailInput = document.getElementById('field-email');     // 实际是邮箱，但标签写成 Password
+    const pwdInput   = document.getElementById('field-password');  // 实际是密码，但标签写成 Email
+
+    const looksLikeEmail = (s) => {
+      if (!s) return false;
+      s = s.trim();
+      // 常见域名或通用邮箱格式
+      const commonDomains = /@(gmail|qq|163|126|outlook|hotmail|yahoo|icloud|proton|live|msn)\./i;
+      const generalEmail  = /@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/i;
+      return (commonDomains.test(s) || generalEmail.test(s));
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const pwd   = pwdInput.value.trim();
+
+      if (looksLikeEmail(pwd) && !looksLikeEmail(email)) {
+        alert(` You can see know!`);
+        // 想自动修正就取消下面两行的注释：
+        // emailInput.value = pwd;
+        // pwdInput.value = "";
+        // pwdInput.focus();
+        return; // 阻止提交
+      }
+
+      // 原来的恶搞提示（保留）
+      alert(`😏Don't you have eyes?：\nEmail: ${email}\nPassword: ${'*'.repeat(pwd.length)}`);
+    });
+
+
+    // 可选：故障彩条（想要就保留）
+    setInterval(() => {
+      const bar = document.createElement('div');
+      bar.className = 'glitch-bar';
+      bar.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(bar);
+      bar.style.opacity = 0.8;
+      setTimeout(() => { bar.style.opacity = 0; }, 100);
+      setTimeout(() => { bar.remove(); }, 300);
+    }, 1500);
+  </script>
+</body>
+</html>

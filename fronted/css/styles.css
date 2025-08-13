@@ -1,48 +1,230 @@
 :root{
-  --bg:#b6a295;           /* warm beige background */
-  --card:#ffffff;         /* card surface */
-  --ink:#111827;          /* almost-black text */
-  --muted:#6b7280;        /* gray-500 */
-  --accent:#111827;       /* button color */
-  --accent-ink:#ffffff;   /* button text */
-  --ring: rgba(17,24,39,.12);
-  --shadow: 0 10px 30px rgba(17,24,39,.10);
-  --radius: 18px;
+  --bg:#0b0b12; --card:#131322; --text:#e9e9f1; --muted:#9aa0a6;
+  --primary:#7c5cff; --primary-ink:#0c0820; --border:#24243a; --focus:#b39dff;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{
-  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-  color:var(--ink); background:var(--bg);
-  display:grid; place-items:center;
+body.shell{
+  margin:0; display:grid; place-items:center; background:radial-gradient(60% 60% at 50% 40%, #12122a, #090911);
+  color:var(--text); font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
 }
-.shell{width:min(1100px,95vw); height:min(680px,92vh); background:linear-gradient(180deg, #c6b7ac 0%, #b6a295 100%); padding:18px; border-radius:28px; position:relative; overflow:hidden}
-.frame{display:grid; grid-template-columns: 48% 52%; gap:0; width:100%; height:100%; background:transparent; border-radius:22px; overflow:hidden}
-.media{position:relative; overflow:hidden}
-.media::before{content:""; position:absolute; inset:0; background-image: repeating-linear-gradient( 30deg, rgba(255,255,255,.12) 0 2px, transparent 2px 60px); pointer-events:none; z-index:1}
-.media > img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.95) contrast(1.05)}
-.panel{display:flex; align-items:center; justify-content:center; background:var(--card)}
-.card{width:min(440px,88%); padding:42px 40px; border-radius:var(--radius); box-shadow:var(--shadow)}
-.brand{font-weight:700; letter-spacing:.2px; font-size:14px; color:var(--muted); margin-bottom:10px}
-.title{font-size:28px; font-weight:700; margin:0 0 6px}
-.subtitle{color:var(--muted); margin:0 0 26px; font-size:14px}
-.field{margin:16px 0}
-.label{display:block; font-size:13px; font-weight:600; margin:0 0 8px}
-.input{width:100%; border:1px solid #e5e7eb; border-radius:12px; padding:12px 14px; font-size:15px; outline:none; transition:box-shadow .15s,border-color .15s}
-.input:focus{border-color:#c4c7cf; box-shadow:0 0 0 6px var(--ring)}
-.row{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:10px 0 18px}
-.checkbox{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted)}
-.checkbox input{width:16px; height:16px}
-.link{color:#374151; text-decoration:none; font-weight:600}
-.link:hover{text-decoration:underline}
-.btn{width:100%; border:none; background:var(--accent); color:var(--accent-ink); font-weight:600; padding:14px 16px; border-radius:12px; cursor:pointer; font-size:15px; box-shadow:0 6px 18px rgba(17,24,39,.15); transition:transform .06s ease, box-shadow .2s ease, opacity .18s}
-.btn:hover{transform:translateY(-1px); box-shadow:0 10px 26px rgba(17,24,39,.20)}
+.card{
+  width:min(560px, 92vw); background:color-mix(in lab, var(--card) 90%, black 10%);
+  border:1px solid var(--border); border-radius:20px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+h1{margin:0 0 10px; font-size:28px}
+.muted{color:var(--muted)}
+.tiny{font-size:12px}
+.row{display:flex; gap:12px; margin-top:18px}
+.btn{
+  appearance:none; border:1px solid var(--border); background:#18182c; color:var(--text);
+  padding:10px 14px; border-radius:12px; cursor:pointer; transition:.18s transform ease, .18s opacity ease, .18s background ease;
+}
+.btn:hover{transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
-.muted{color:var(--muted); font-size:14px; text-align:center; margin-top:18px}
-.toast{position:absolute; left:50%; bottom:16px; transform:translateX(-50%); background:#111827; color:#fff; padding:10px 14px; font-size:13px; border-radius:999px; box-shadow:0 8px 24px rgba(0,0,0,.24); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s}
-.toast.show{opacity:1; transform:translateX(-50%) translateY(-4px)}
-[data-mode="signup"] .title::after{content:" – Create your account"; font-weight:600; color:#6b7280; font-size:14px; margin-left:6px}
-[data-mode="signin"] .signup-only{display:none}
-[data-mode="signup"] .signin-only{display:none}
-.card:hover .btn.primary{transform:translate(1px,-1px)}
-.helper{margin-top:10px; font-size:12px; color:#9ca3af}
+.btn.primary{background:var(--primary); color:white; border-color:transparent}
+.btn.ghost{background:transparent}
+.link{display:inline-block; margin-top:16px; color:var(--text); text-decoration:none; border-bottom:1px dashed var(--border)}
+.link:hover{opacity:.9}
+.form{display:grid; gap:10px; margin-top:10px}
+.lbl{font-weight:600; font-size:13px}
+input{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border);
+  background:#0f0f1d; color:var(--text); outline:none;
+}
+input:focus{border-color:var(--focus); box-shadow:0 0 0 3px color-mix(in lab, var(--focus) 30%, transparent)}
+.sep{
+  display:flex; align-items:center; gap:10px; color:var(--muted); font-size:13px; margin:18px 0 10px;
+}
+.sep::before,.sep::after{content:""; height:1px; background:var(--border); flex:1}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.weird{letter-spacing:.5px}
+.confetti{
+  margin-top:14px; padding:10px 12px; border-radius:10px; text-align:center;
+  background:#0e1f12; border:1px solid #1e3b22;
+  animation: pop .25s ease-out both;
+}
+@keyframes pop{from{transform:scale(.92); opacity:0} to{transform:scale(1); opacity:1}}
+/* 小恶搞：鼠标悬停在 cometoa 上偶尔“躲开” */
+.weird.dodge{position:relative}
+.weird.dodge:hover{transform:translateY(-1px)}
+.weird.dodge:active{transform:translateY(0)}
+
+
+/* === Auth split layout (append) === */
+.auth {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;   /* 左图略宽 */
+  background:
+    radial-gradient(60% 60% at 50% 40%, #12122a, #090911); /* 延续你的暗色背景 */
+  padding: 24px;
+}
+
+/* 整体带圆角并裁剪溢出，营造大容器感 */
+.auth-frame {
+  display: grid;
+  grid-template-columns: inherit;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+  background: #0b0b12;
+}
+
+/* 左侧大图 */
+.auth-hero {
+  position: relative;
+  background: #0e0e18;
+}
+.auth-hero > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 右侧表单区域 */
+.auth-form {
+  display: grid;
+  place-items: center;
+  background: #fff;                    /* 白底以贴近参考图 */
+  color: #111;                          /* 表单内用深色文字 */
+}
+
+/* 表单卡片尺寸与排版 */
+.auth-card {
+  width: min(420px, 90vw);
+  background: #fff;
+  color: #111;
+}
+
+.auth-title {
+  margin: 0 0 6px;
+  font-size: 28px;
+  line-height: 1.15;
+  color: #111;
+  font-weight: 700;
+}
+.auth-subtitle {
+  margin: 0 0 16px;
+  color: #555;
+}
+
+/* 复用你原有的 input / btn，但调成浅色主题 */
+.auth .lbl { color:#222; }
+.auth input{
+  background:#fff;
+  color:#111;
+  border:1px solid #cfcfd9;
+}
+.auth input:focus{
+  border-color:#9aa0a6;
+  box-shadow:0 0 0 3px rgba(124,92,255,.15);
+}
+
+/* 行内选项与按钮 */
+.auth-row{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  font-size:13px; color:#444; margin-top:4px;
+}
+.auth a.link-inline{ color:#6b6b76; text-decoration:none; border-bottom:1px dashed #d6d6de }
+.auth a.link-inline:hover{ opacity:.85 }
+
+.auth button.btn.primary{
+  width:100%; padding:12px 14px; margin-top:12px;
+  background:#a89f92;                 /* 贴近参考图按钮色 */
+  border-color:transparent;
+  color:#fff;
+  border-radius:12px;
+}
+
+/* 底部 “没有账号？” 行 */
+.auth .tiny.light {
+  color:#6a6a6a; text-align:center; margin-top:12px;
+}
+
+/* —— 移动端：图片在上，表单做成玻璃卡片 —— */
+@media (max-width: 900px){
+  .auth { padding: 12px; }
+  .auth-frame{
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+  }
+  .auth-hero{ height: 38vh; }
+  .auth-form{
+    background: transparent;
+    place-items: start;
+  }
+  .auth-card{
+    margin: -60px 16px 24px;           /* 覆盖在图片上形成卡片 */
+    padding: 16px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,.78);
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 14px;
+  }
+}
+
+/* 桌面端 auth-card 内边距 */
+@media (min-width: 901px){
+  .auth-card{ padding: 24px; border-radius: 0; }
+}
+/* 故障风背景容器 */
+body {
+  background: linear-gradient(120deg, #0b0b12, #090911, #131322);
+  background-size: 300% 300%;
+  animation: bgMove 12s ease infinite;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 渐变移动 */
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 噪点层 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* 扫描线层 */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: scan 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+/* 故障抖动条（可选：偶尔闪） */
+.glitch-bar {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #f0f, #0ff, #ff0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+}

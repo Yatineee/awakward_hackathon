@@ -1,47 +1,32 @@
-// main.js — wire everything together
-import { $, $$ } from './ui.js';
-import { enableCometoadMutation, fakeSignIn, fakeSignup } from './pranks.js';
-import { runImpossibleCaptcha } from './captcha.js';
+import { $, toast } from './ui.js';
+import { enableCometoadMutation, fakeSignIn } from './prank.js';
+// import { runImpossibleCaptcha } from './captcha.js'; // hook later if needed
 
 const card = $('#card');
-const toSignup = $('#toSignup');
-const toSignin = $('#toSignin');
-const btnSignIn = $('#btnSignIn');
-const btnSignup = $('#btnSignup');
+const btnContinue = $('#btnContinue');
+const email = $('#email');
+const helper = document.getElementById('helper'); // optional
 
-function setMode(mode){
-  card?.setAttribute('data-mode', mode);
-}
+let step = 'email';
 
-// Switchers
-toSignup?.addEventListener('click', e=>{
-  e.preventDefault();
-  setMode('signup');
-  $('#password2')?.value = '';
-  enableCometoadMutation();
-});
-
-toSignin?.addEventListener('click', e=>{
-  e.preventDefault();
-  setMode('signin');
-});
-
-// Actions
-btnSignIn?.addEventListener('click', fakeSignIn);
-
-btnSignup?.addEventListener('click', async ()=>{
-  try{
-    await runImpossibleCaptcha();
-  }catch(e){
-    // expected to fail — then do the extra prank
-    fakeSignup();
+btnContinue?.addEventListener('click', async ()=>{
+  if(step === 'email'){
+    if(!email.value){ toast('Please enter your email'); return; }
+    step = 'password';
+    card?.setAttribute('data-step','password');
+    btnContinue.textContent = 'Continue';
+    enableCometoadMutation(btnContinue, helper);
+    toast('Now enter your password');
+  } else {
+    // await runImpossibleCaptcha().catch(()=>{});
+    fakeSignIn();
   }
 });
 
-// Optional: swap hero via ?img=... query
+// Optional: swap hero via ?img=...
 const params = new URLSearchParams(location.search);
 const imgUrl = params.get('img');
 if(imgUrl){
-  const hero = $('#hero');
+  const hero = document.getElementById('hero');
   if(hero) hero.src = imgUrl;
 }
